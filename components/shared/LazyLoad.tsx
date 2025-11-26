@@ -48,37 +48,6 @@ export function createLazyComponent<T extends React.ComponentType<any>>(
   );
 }
 
-// Lazy loaded route components
-export const LazyDashboard = createLazyComponent(
-  () => import('@/app/(dashboard)/page'),
-  'Loading dashboard...'
-);
-
-export const LazyAnalytics = createLazyComponent(
-  () => import('@/app/(dashboard)/analytics/page'),
-  'Loading analytics...'
-);
-
-export const LazyUsers = createLazyComponent(
-  () => import('@/app/(dashboard)/users/page'),
-  'Loading users...'
-);
-
-export const LazyOrders = createLazyComponent(
-  () => import('@/app/(dashboard)/orders/page'),
-  'Loading orders...'
-);
-
-export const LazyPartners = createLazyComponent(
-  () => import('@/app/(dashboard)/partners/temples/page'),
-  'Loading partners...'
-);
-
-export const LazyPriestAssignment = createLazyComponent(
-  () => import('@/app/(dashboard)/priests/assignment/page'),
-  'Loading priest assignment...'
-);
-
 // Lazy loaded heavy components
 export const LazyPerformanceChart = createLazyComponent(
   () => import('@/components/dashboard/PerformanceChart'),
