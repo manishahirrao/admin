@@ -1,0 +1,5 @@
+# Exclude incomplete/advanced features from deployment
+app/(dashboard)/priests/
+app/(dashboard)/partners/
+components/priests/
+components/partners/
