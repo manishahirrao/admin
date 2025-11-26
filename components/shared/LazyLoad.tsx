@@ -1,0 +1,106 @@
+'use client';
+
+import React, { Suspense, lazy } from 'react';
+
+/**
+ * Loading fallback component
+ */
+export function LoadingFallback({ message = 'Loading...' }: { message?: string }) {
+  return (
+    <div className="flex items-center justify-center min-h-[400px]">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+        <p className="text-sm text-gray-600">{message}</p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Lazy load wrapper with error boundary
+ */
+interface LazyLoadProps {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+}
+
+export function LazyLoad({ children, fallback }: LazyLoadProps) {
+  return (
+    <Suspense fallback={fallback || <LoadingFallback />}>
+      {children}
+    </Suspense>
+  );
+}
+
+/**
+ * Create lazy loaded component with custom fallback
+ */
+export function createLazyComponent<T extends React.ComponentType<any>>(
+  importFunc: () => Promise<{ default: T }>,
+  fallbackMessage?: string
+) {
+  const LazyComponent = lazy(importFunc);
+
+  return (props: React.ComponentProps<T>) => (
+    <Suspense fallback={<LoadingFallback message={fallbackMessage} />}>
+      <LazyComponent {...props} />
+    </Suspense>
+  );
+}
+
+// Lazy loaded route components
+export const LazyDashboard = createLazyComponent(
+  () => import('@/app/(dashboard)/page'),
+  'Loading dashboard...'
+);
+
+export const LazyAnalytics = createLazyComponent(
+  () => import('@/app/(dashboard)/analytics/page'),
+  'Loading analytics...'
+);
+
+export const LazyUsers = createLazyComponent(
+  () => import('@/app/(dashboard)/users/page'),
+  'Loading users...'
+);
+
+export const LazyOrders = createLazyComponent(
+  () => import('@/app/(dashboard)/orders/page'),
+  'Loading orders...'
+);
+
+export const LazyPartners = createLazyComponent(
+  () => import('@/app/(dashboard)/partners/temples/page'),
+  'Loading partners...'
+);
+
+export const LazyPriestAssignment = createLazyComponent(
+  () => import('@/app/(dashboard)/priests/assignment/page'),
+  'Loading priest assignment...'
+);
+
+// Lazy loaded heavy components
+export const LazyPerformanceChart = createLazyComponent(
+  () => import('@/components/dashboard/PerformanceChart'),
+  'Loading chart...'
+);
+
+export const LazyActivityHeatmap = createLazyComponent(
+  () => import('@/components/dashboard/ActivityHeatmap'),
+  'Loading heatmap...'
+);
+
+export const LazyDataTable = createLazyComponent(
+  () => import('@/components/tables/DataTable'),
+  'Loading table...'
+);
+
+export const LazyKanbanBoard = createLazyComponent(
+  () => import('@/components/partners/KanbanBoard'),
+  'Loading board...'
+);
+
+export const LazyCustomReportBuilder = createLazyComponent(
+  () => import('@/components/analytics/CustomReportBuilder'),
+  'Loading report builder...'
+);
