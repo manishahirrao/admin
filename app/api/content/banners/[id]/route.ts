@@ -4,7 +4,7 @@ import { logUpdate, logDelete } from '@/lib/services/audit.service';
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -19,7 +19,7 @@ export async function PATCH(
     }
 
     const body = await request.json();
-    const { id } = params;
+    const { id } = await params;
 
     // Get old value for audit
     const { data: oldBanner } = await supabase
@@ -55,7 +55,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -69,7 +69,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     // Get old value for audit
     const { data: oldBanner } = await supabase

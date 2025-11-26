@@ -292,3 +292,5 @@ export function CustomReportBuilder({ filters }: CustomReportBuilderProps) {
     </div>
   );
 }
+
+export default CustomReportBuilder;

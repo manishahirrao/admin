@@ -77,7 +77,7 @@ export function PerformanceChart({
       case 'line':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data} onClick={onDataPointClick}>
+            <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={xAxisKey} />
               <YAxis />
@@ -97,7 +97,7 @@ export function PerformanceChart({
       case 'bar':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data} onClick={onDataPointClick}>
+            <BarChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={xAxisKey} />
               <YAxis />
@@ -120,7 +120,6 @@ export function PerformanceChart({
                 cy="50%"
                 outerRadius={100}
                 label
-                onClick={onDataPointClick}
               >
                 {data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
@@ -135,7 +134,7 @@ export function PerformanceChart({
       case 'area':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <AreaChart data={data} onClick={onDataPointClick}>
+            <AreaChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey={xAxisKey} />
               <YAxis />
@@ -180,3 +179,5 @@ export function PerformanceChart({
     </div>
   );
 }
+
+export default PerformanceChart;

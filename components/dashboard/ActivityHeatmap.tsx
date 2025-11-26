@@ -131,3 +131,5 @@ export function ActivityHeatmap({ data, loading = false }: ActivityHeatmapProps)
     </div>
   );
 }
+
+export default ActivityHeatmap;

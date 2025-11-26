@@ -163,3 +163,5 @@ export function DataTable<T>({
     </div>
   );
 }
+
+export default DataTable;

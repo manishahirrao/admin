@@ -156,7 +156,7 @@ export async function getActiveWorkloadAlerts(): Promise<WorkloadAlert[]> {
       utilization_percentage,
       suggested_actions,
       created_at,
-      priests (
+      priests!inner (
         name
       )
     `
@@ -169,10 +169,10 @@ export async function getActiveWorkloadAlerts(): Promise<WorkloadAlert[]> {
     return [];
   }
 
-  return data.map(alert => ({
+  return data.map((alert: any) => ({
     id: alert.id,
     priestId: alert.priest_id,
-    priestName: alert.priests?.name || 'Unknown',
+    priestName: Array.isArray(alert.priests) ? alert.priests[0]?.name : alert.priests?.name || 'Unknown',
     currentLoad: alert.current_load,
     optimalCapacity: alert.optimal_capacity,
     utilizationPercentage: alert.utilization_percentage,
@@ -207,7 +207,7 @@ export async function generateRedistributionSuggestions(
       `
       id,
       ritual_id,
-      rituals (
+      rituals!inner (
         name,
         required_specializations
       )
@@ -227,8 +227,9 @@ export async function generateRedistributionSuggestions(
   if (!availablePriests) return [];
 
   // Match rituals to available priests
-  for (const ritual of assignedRituals) {
-    const requiredSpecs = ritual.rituals?.required_specializations || [];
+  for (const ritual of assignedRituals as any[]) {
+    const ritualData = Array.isArray(ritual.rituals) ? ritual.rituals[0] : ritual.rituals;
+    const requiredSpecs = ritualData?.required_specializations || [];
 
     for (const priest of availablePriests) {
       const utilizationPercentage =

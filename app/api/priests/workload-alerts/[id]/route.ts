@@ -3,10 +3,11 @@ import { dismissWorkloadAlert } from '@/lib/services/workload-alert.service';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    await dismissWorkloadAlert(params.id);
+    await dismissWorkloadAlert(id);
 
     return NextResponse.json({
       success: true,

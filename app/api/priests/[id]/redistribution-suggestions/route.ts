@@ -3,10 +3,11 @@ import { generateRedistributionSuggestions } from '@/lib/services/workload-alert
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
-    const suggestions = await generateRedistributionSuggestions(params.id);
+    const suggestions = await generateRedistributionSuggestions(id);
 
     return NextResponse.json({
       success: true,
