@@ -48,28 +48,9 @@ export function createLazyComponent<T extends React.ComponentType<any>>(
   );
 }
 
-// Lazy loaded heavy components
-export const LazyPerformanceChart = createLazyComponent(
-  () => import('@/components/dashboard/PerformanceChart'),
-  'Loading chart...'
-);
-
-export const LazyActivityHeatmap = createLazyComponent(
-  () => import('@/components/dashboard/ActivityHeatmap'),
-  'Loading heatmap...'
-);
-
-export const LazyDataTable = createLazyComponent(
-  () => import('@/components/tables/DataTable'),
-  'Loading table...'
-);
-
-export const LazyKanbanBoard = createLazyComponent(
-  () => import('@/components/partners/KanbanBoard'),
-  'Loading board...'
-);
-
-export const LazyCustomReportBuilder = createLazyComponent(
-  () => import('@/components/analytics/CustomReportBuilder'),
-  'Loading report builder...'
-);
+// Lazy loaded heavy components can be created using createLazyComponent when needed
+// Example:
+// export const LazyComponent = createLazyComponent(
+//   () => import('@/components/path/Component'),
+//   'Loading...'
+// );
